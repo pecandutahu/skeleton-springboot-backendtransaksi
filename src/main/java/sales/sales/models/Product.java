@@ -28,7 +28,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Builder
 @Entity
 
-
 @FilterDef(name = "deletedProductFilter", defaultCondition = "is_deleted = false")
 @Filter(name = "deletedProductFilter")
 
@@ -57,8 +56,12 @@ public class Product {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    private Long createdBy;
+
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    private Long updatedBy;
     
     @Builder.Default
     private boolean isDeleted = false;

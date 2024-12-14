@@ -23,6 +23,9 @@ public class AuthService {
     @Transactional
      public TokenResponse login(LoginUserRequest request) {
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password is wrong"));
+        if(!user.isActive()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Account is not active yet, please contact admin!");
+        }
         if(BCrypt.checkpw(request.getPassword(), user.getPassword())) {
             user.setToken(UUID.randomUUID().toString());
             user.setTokenExpiredAt(next30Days());

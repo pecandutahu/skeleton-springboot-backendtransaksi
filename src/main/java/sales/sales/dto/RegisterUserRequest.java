@@ -24,9 +24,9 @@ public class RegisterUserRequest {
     @Size(max=100)
     private String password;
 
-    @NotBlank
-    @Size(max=100)
     private String role;
+
+    private boolean isActive;
 
     @NotBlank
     @Size(max=100)

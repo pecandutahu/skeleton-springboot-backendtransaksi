@@ -1,6 +1,11 @@
 package sales.sales.models;
 
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +33,22 @@ public class User {
     private String name;
     private String role; // Untuk sementara hardcode dulu admin,kasir
     private String token;
+    
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    private Long createdBy;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    private Long updatedBy;
+    
+    @Builder.Default
+    private boolean isDeleted = false;
+    
+    @Builder.Default
+    private boolean isActive = false;
     
     @Column(name = "token_expired_at")
     private Long tokenExpiredAt;

@@ -9,4 +9,5 @@ import sales.sales.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
     Optional<User> findByToken(String token);
+    Optional<User> findByRole(String role);
 }
