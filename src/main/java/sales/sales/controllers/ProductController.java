@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 import sales.sales.dto.WebResponse;
 import sales.sales.models.Product;
+import sales.sales.models.User;
 import sales.sales.services.ProductService;
 
 @RestController
@@ -30,23 +31,23 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public WebResponse<List<Product>> getAllProducts() {
+    public WebResponse<List<Product>> getAllProducts(User user) {
         return WebResponse.<List<Product>>builder().data(productService.getAllProducts()).messages("success").build();
     }
 
     @GetMapping("/{id}")
-    public WebResponse<Product> getProductById( @PathVariable Long id) {
+    public WebResponse<Product> getProductById(User user, @PathVariable Long id) {
         Optional<Product> product = productService.getProductById(id);
         return WebResponse.<Product>builder().data(product.get()).messages("success").build();
     }
 
     @PostMapping
-    public WebResponse<Product> createProduct( @Valid @RequestBody Product customer) {
+    public WebResponse<Product> createProduct(User user, @Valid @RequestBody Product customer) {
         return WebResponse.<Product>builder().data(productService.save(customer)).messages("success").build();
     }
 
     @PutMapping("/{id}")
-    public WebResponse<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product productDetails) {
+    public WebResponse<Product> updateProduct(User user, @PathVariable Long id, @Valid @RequestBody Product productDetails) {
         Optional<Product> product = productService.getProductById(id);
         product.get().setProductName(productDetails.getProductName());
         product.get().setPrice(productDetails.getPrice());
@@ -56,7 +57,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public WebResponse<Product> deleteCustomer(@PathVariable Long id) {
+    public WebResponse<Product> deleteCustomer(User user,@PathVariable Long id) {
         Product product = productService.getProductById(id)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "data Not Found"));
         productService.deleteById(id);
