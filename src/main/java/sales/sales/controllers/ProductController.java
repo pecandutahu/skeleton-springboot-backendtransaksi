@@ -42,8 +42,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public WebResponse<Product> createProduct(User user, @Valid @RequestBody Product customer) {
-        return WebResponse.<Product>builder().data(productService.save(customer)).messages("success").build();
+    public WebResponse<Product> createProduct(User user, @Valid @RequestBody Product product) {
+        product.setCreatedBy(user.getUserId());
+        return WebResponse.<Product>builder().data(productService.save(product)).messages("success").build();
     }
 
     @PutMapping("/{id}")
@@ -52,6 +53,7 @@ public class ProductController {
         product.get().setProductName(productDetails.getProductName());
         product.get().setPrice(productDetails.getPrice());
         product.get().setStock(productDetails.getStock());
+        product.get().setUpdatedBy(user.getUserId());
         productService.save(product.get());
         return WebResponse.<Product>builder().data(product.get()).messages("Success").build();
     }
@@ -60,7 +62,7 @@ public class ProductController {
     public WebResponse<Product> deleteCustomer(User user,@PathVariable Long id) {
         Product product = productService.getProductById(id)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "data Not Found"));
-        productService.deleteById(id);
+        productService.deleteById(id, user);
         return WebResponse.<Product>builder()
                 .data(product)
                 .messages("Data deleted successfully")

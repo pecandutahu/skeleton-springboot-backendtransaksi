@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.persistence.EntityManager;
 import sales.sales.models.Product;
+import sales.sales.models.User;
 import sales.sales.repositories.ProductRepository;
 
 @Service
@@ -36,11 +37,12 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id, User user) {
         entityManager.unwrap(Session.class).enableFilter("deletedProductFilter");
         Product product = productRepository.findById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found for this id :: " + id));
             product.setDeleted(true);
+            product.setUpdatedBy(user.getUserId());
             productRepository.save(product);
     }
 }
