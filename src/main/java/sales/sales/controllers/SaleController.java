@@ -118,15 +118,4 @@ public class SaleController {
         return WebResponse.<Sale>builder().data(sale.get()).messages("Success").build();
     }
 
-    @DeleteMapping("/{id}")
-    public WebResponse<Sale> deleteCustomer(User user,@PathVariable UUID id) {
-        Sale sale = saleService.getSaleById(id)
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "data Not Found"));
-        saleService.deleteById(id, user);
-        return WebResponse.<Sale>builder()
-                .data(sale)
-                .messages("Data deleted successfully")
-                .build();
-    }
-
 }

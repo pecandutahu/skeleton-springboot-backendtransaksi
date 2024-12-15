@@ -3,6 +3,7 @@ package sales.sales.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import sales.sales.dto.RegisterUserRequest;
 import sales.sales.dto.UserResponse;
@@ -66,11 +68,19 @@ public class UserController {
 
     @GetMapping("users")
     public List<UserResponse> getAllUsers( User user) {
+        
+        if (!user.getRole().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied: You do not have the required role");
+        }
         return userService.findAll();
     }
     
     @PutMapping("/users/activate/{id}")
     public WebResponse<String> activate(User user, @PathVariable Long id) {
+        
+        if (!user.getRole().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied: You do not have the required role");
+        }
         userService.activate(id, user);
         return WebResponse.<String>builder().data("OK").build();
     }

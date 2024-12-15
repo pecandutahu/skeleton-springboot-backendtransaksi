@@ -32,23 +32,38 @@ public class ProductController {
 
     @GetMapping
     public WebResponse<List<Product>> getAllProducts(User user) {
+        if (!user.getRole().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied: You do not have the required role");
+        }
         return WebResponse.<List<Product>>builder().data(productService.getAllProducts()).messages("success").build();
     }
 
     @GetMapping("/{id}")
     public WebResponse<Product> getProductById(User user, @PathVariable Long id) {
+        
+        if (!user.getRole().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied: You do not have the required role");
+        }
         Optional<Product> product = productService.getProductById(id);
         return WebResponse.<Product>builder().data(product.get()).messages("success").build();
     }
 
     @PostMapping
     public WebResponse<Product> createProduct(User user, @Valid @RequestBody Product product) {
+        
+        if (!user.getRole().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied: You do not have the required role");
+        }
         product.setCreatedBy(user.getUserId());
         return WebResponse.<Product>builder().data(productService.save(product)).messages("success").build();
     }
 
     @PutMapping("/{id}")
     public WebResponse<Product> updateProduct(User user, @PathVariable Long id, @Valid @RequestBody Product productDetails) {
+        
+        if (!user.getRole().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied: You do not have the required role");
+        }
         Optional<Product> product = productService.getProductById(id);
         product.get().setProductName(productDetails.getProductName());
         product.get().setPrice(productDetails.getPrice());
@@ -60,6 +75,10 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public WebResponse<Product> deleteCustomer(User user,@PathVariable Long id) {
+        
+        if (!user.getRole().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied: You do not have the required role");
+        }
         Product product = productService.getProductById(id)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "data Not Found"));
         productService.deleteById(id, user);
