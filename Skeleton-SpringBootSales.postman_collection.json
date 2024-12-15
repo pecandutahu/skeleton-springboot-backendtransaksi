@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "b786b3f3-ae33-41f9-87c1-467f2b022c69",
+		"name": "Skeleton-SpringBootSales",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4354350",
+		"_collection_link": "https://speeding-equinox-396648.postman.co/workspace/79~7ac170f4-f2f8-42e0-a9a9-24b513c3de6a/collection/4354350-b786b3f3-ae33-41f9-87c1-467f2b022c69?action=share&source=collection_link&creator=4354350"
+	},
+	"item": [
+		{
+			"name": "products/getAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"url": "{{localURISPRINGBOOT}}/api/products"
+			},
+			"response": []
+		},
+		{
+			"name": "products/getById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"url": "{{localURISPRINGBOOT}}/api/products/1"
+			},
+			"response": []
+		},
+		{
+			"name": "products/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productName\": \"Product 2\",\r\n    \"stock\" : \"100\",\r\n    \"price\" : \"2000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/products"
+			},
+			"response": []
+		},
+		{
+			"name": "products/put",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productName\": \"Product 1 updated\",\r\n    \"stock\" : \"100\",\r\n    \"price\" : \"20000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/products/1"
+			},
+			"response": []
+		},
+		{
+			"name": "products/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productName\": \"Product 2 tobe deleted soon\",\r\n    \"stock\" : \"100\",\r\n    \"price\" : \"20000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/products/2"
+			},
+			"response": []
+		},
+		{
+			"name": "users/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"epa\",\r\n    \"name\" : \"epa test\",\r\n    \"password\" : \"rahasia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "users/register Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"dede\",\r\n    \"name\" : \"test\",\r\n    \"password\" : \"rahasia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/users/admin"
+			},
+			"response": []
+		},
+		{
+			"name": "users/Activate",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"dede\",\r\n    \"name\" : \"test\",\r\n    \"password\" : \"rahasia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/users/activate/2"
+			},
+			"response": []
+		},
+		{
+			"name": "users/getAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"dede\",\r\n    \"name\" : \"test\",\r\n    \"password\" : \"rahasia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "users/current",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "c4fa1f54-f832-4300-9681-fbe1109dd5bb",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"dede\",\r\n    \"name\" : \"test\",\r\n    \"password\" : \"rahasia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/users/current"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"dede\",\r\n    \"password\": \"rahasia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localSpringBoot}}/api/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "sales/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"saleCode\" : \"TS002\",\r\n    \"saleDate\" : \"\",\r\n    \"totalPrice\" : \"44000\",\r\n    \"saleItems\" : [\r\n        {\r\n            \"product\" : {\r\n                \"productId\" : \"1\"\r\n            },\r\n            \"quantity\" : \"2\",\r\n            \"price\" : \"20000\",\r\n            \"subtotal\" : \"40000\" \r\n        },\r\n        {\r\n            \"product\" : {\r\n                \"productId\" : \"2\"\r\n            },\r\n            \"quantity\" : \"2\",\r\n            \"price\" : \"2000\",\r\n            \"subtotal\" : \"4000\" \r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/sales"
+			},
+			"response": []
+		},
+		{
+			"name": "sales/create Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"saleCode\" : \"TS002\",\r\n    \"saleDate\" : \"\",\r\n    \"totalPrice\" : \"1500000\",\r\n    \"saleItems\" : [\r\n        {\r\n            \"product\" : {\r\n                \"productId\" : \"1\"\r\n            },\r\n            \"quantity\" : \"1\",\r\n            \"price\" : \"1500000\",\r\n            \"subtotal\" : \"1500000\" \r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/sales/refund/a9cd0ac9-601e-4dd1-8c6b-bd09157859d8"
+			},
+			"response": []
+		},
+		{
+			"name": "sales/getAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"saleCode\" : \"TS002\",\r\n    \"saleDate\" : \"\",\r\n    \"totalPrice\" : \"1500000\",\r\n    \"saleItems\" : [\r\n        {\r\n            \"product\" : {\r\n                \"productId\" : \"1\"\r\n            },\r\n            \"quantity\" : \"1\",\r\n            \"price\" : \"1500000\",\r\n            \"subtotal\" : \"1500000\" \r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/sales"
+			},
+			"response": []
+		},
+		{
+			"name": "sales/report",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"saleCode\" : \"TS002\",\r\n    \"saleDate\" : \"\",\r\n    \"totalPrice\" : \"1500000\",\r\n    \"saleItems\" : [\r\n        {\r\n            \"product\" : {\r\n                \"productId\" : \"1\"\r\n            },\r\n            \"quantity\" : \"1\",\r\n            \"price\" : \"1500000\",\r\n            \"subtotal\" : \"1500000\" \r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localURISPRINGBOOT}}/api/sales/report?status=refund&startDate=2024-12-14&endDate=2024-12-15",
+					"host": [
+						"{{localURISPRINGBOOT}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"report"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "refund"
+						},
+						{
+							"key": "startDate",
+							"value": "2024-12-14"
+						},
+						{
+							"key": "endDate",
+							"value": "2024-12-15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sales/FindOne",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-TOKEN",
+						"value": "{{x_api_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"saleCode\" : \"TS002\",\r\n    \"saleDate\" : \"\",\r\n    \"totalPrice\" : \"1500000\",\r\n    \"saleItems\" : [\r\n        {\r\n            \"product\" : {\r\n                \"productId\" : \"1\"\r\n            },\r\n            \"quantity\" : \"1\",\r\n            \"price\" : \"1500000\",\r\n            \"subtotal\" : \"1500000\" \r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{localURISPRINGBOOT}}/api/sales/89aa3a24-3d40-4cf0-8e26-26ac0f2e786b"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "x_api_token",
+			"value": "c4fa1f54-f832-4300-9681-fbe1109dd5bb"
+		}
+	]
+}
