@@ -30,7 +30,11 @@ public class ProductService {
 
     public Optional<Product> getProductById(Long id) {
         entityManager.unwrap(Session.class).enableFilter("deletedProductFilter");
-        return productRepository.findById(id);
+        Optional<Product> product = productRepository.findById(id);
+        if (!product.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
+        return product;
     }
 
     public Product save(Product product) {

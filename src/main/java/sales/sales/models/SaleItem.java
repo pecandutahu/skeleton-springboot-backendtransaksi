@@ -17,20 +17,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "transaction_item")
+@Table(name = "sale_item")
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class TransactionItem {
+public class SaleItem {
     @Id
-    @Column(name = "transaction_item_id")
+    @Column(name = "sale_item_id")
     @GeneratedValue(generator = "UUID")
-    private UUID orderItemId;
+    private UUID saleItemId;
     
-    @Column(name = "transaction_id")
-    private UUID transactionId;
+    @Column(name = "sale_id")
+    private UUID saleId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -39,24 +39,27 @@ public class TransactionItem {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "price")
+    private Double price;
+
     @Column(name = "subtotal")
-    private int subtotal;
+    private Double subtotal;
     
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    private int createdBy;
+    private Long createdBy;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private int updatedBy;
+    private Long updatedBy;
     
     private boolean isDeleted = false;
 
-    public TransactionItem(Product product, int quantity, UUID transactionId) {
+    public SaleItem(Product product, int quantity, UUID saleId) {
         this.product = product;
         this.quantity = quantity;
-        this.transactionId = transactionId;
+        this.saleId = saleId;
     }
 }

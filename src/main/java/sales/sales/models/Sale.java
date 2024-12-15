@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,10 +16,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -26,27 +25,33 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "transaction")
+@Table(name = "sale")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Transaction implements Serializable{
+
+@FilterDef(name = "deletedSaleFilter", defaultCondition = "is_deleted = false")
+@Filter(name = "deletedSaleFilter")
+public class Sale implements Serializable{
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @Column(name = "transaction_id", unique = true, nullable = false)
-    private UUID transactionId;
+    @Column(name = "sale_id", unique = true, nullable = false)
+    private UUID saleId;
 
-    @Column(name = "transaction_code")
-    private String transactionCode;
+    @Column(name = "sale_code", unique = true, nullable = false)
+    private String saleCode;
 
-    @Column(name = "transaction_date")
-    private LocalDateTime transactionDate;
+    @Column(name = "sale_date")
+    private LocalDateTime saleDate;
 
     @Column(name = "total_price")
     private Double totalPrice;
+
+    @Builder.Default
+    private String status = "paid"; //paid dan refund defaultnya paid, akan berubah jadi refund kalau ada trigger refund
     
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -61,21 +66,21 @@ public class Transaction implements Serializable{
     @Builder.Default
     private boolean isDeleted = false;
 
-    @OneToMany(mappedBy = "transactionId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<TransactionItem> transactionItems;
+    @OneToMany(mappedBy = "saleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SaleItem> saleItems;
 
     @PrePersist
     protected void onCreate() {
-        this.transactionDate = LocalDateTime.now();
+        this.saleDate = LocalDateTime.now();
     }
 
-    public List<TransactionItem> getTransactionItems() {
+    public List<SaleItem> getSaleItems() {
         
-        return this.transactionItems;
+        return this.saleItems;
     }
 
-    public void setTransactionItems(List<TransactionItem> transactionItems) {
-        this.transactionItems = transactionItems;
+    public void setSaleItems(List<SaleItem> saleItems) {
+        this.saleItems = saleItems;
     }
 
 }
