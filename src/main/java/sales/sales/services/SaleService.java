@@ -1,8 +1,15 @@
 package sales.sales.services;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +47,22 @@ public class SaleService {
     public List<Sale> getAllSales() {
         entityManager.unwrap(Session.class).enableFilter("deletedSaleFilter");
         return saleRepository.findAll();
+    }
+
+    public List<Sale> getSalesReport(String startDate, String endDate, String status) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime start = startDate != null ? 
+                LocalDate.parse(startDate, dateFormatter).atStartOfDay() : null; // Jam default: 00:00:00
+        LocalDateTime end = endDate != null ? 
+                LocalDate.parse(endDate, dateFormatter).atTime(23, 59, 59) : null; // Jam default: 23:59:59
+
+    
+        entityManager.unwrap(Session.class).enableFilter("deletedSaleFilter");
+        return saleRepository.findAll().stream()
+            .filter(sale -> (startDate == null || sale.getSaleDate().isAfter(start)) && 
+                            (endDate == null || sale.getSaleDate().isBefore(end)) && 
+                            (status == null || sale.getStatus().equals(status)))
+            .toList();
     }
 
     public Optional<Sale> getSaleById(UUID id) {

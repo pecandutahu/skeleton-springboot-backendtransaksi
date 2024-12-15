@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -43,6 +44,17 @@ public class SaleController {
     @GetMapping
     public WebResponse<List<Sale>> getAllSales(User user) {
         return WebResponse.<List<Sale>>builder().data(saleService.getAllSales()).messages("success").build();
+    }
+    
+    @GetMapping("/report")
+    public WebResponse<List<Sale>> getSalesReport(
+        @RequestParam(required = false) String startDate,
+        @RequestParam(required = false) String endDate,
+        @RequestParam(required = false) String status,
+        User user) {
+
+        List<Sale> sales = saleService.getSalesReport(startDate, endDate, status);
+        return WebResponse.<List<Sale>>builder().data(sales).messages("success").build();
     }
 
     @GetMapping("/{id}")
